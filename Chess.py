@@ -27,7 +27,8 @@ class Chessboard():
         
         self.board = []
         self.occupiedSpaces = []
-        
+        self.availableSpaces = []
+
         for columns in range(8):
           for rows in range(1,9):
             self.board.append(chess_map_from_index_to_alpha[columns] + str(rows))
@@ -41,6 +42,12 @@ class Chessboard():
         
     def showOccupiedSpace(self):
         return self.occupiedSpaces
+
+    def showAvailableSpaces(self):
+        for spaces in self.showBoard():
+            if (spaces not in self.occupiedSpaces):
+                self.availableSpaces.append(spaces)
+        return self.availableSpaces
 
 
 class Piece():
@@ -85,3 +92,5 @@ piece3 = Piece("a3", board1)
 
 
 print board1.showOccupiedSpace()
+print board1.showAvailableSpaces()
+

@@ -82,6 +82,16 @@ class Pawn(Piece):
         
         return self.solutionMoves
 
+    def getAttackMoves(self, board):
+        self.attackMoves = []
+        
+        for place in board.occupiedSpaces:
+          
+          if (place == chess_map_from_index_to_alpha[self.column + 1] + str(self.row + 1) or
+              place == chess_map_from_index_to_alpha[self.column - 1] + str(self.row + 1)) :
+              self.attackMoves.append(place)
+        return self.attackMoves
+
 
 class Rook(Piece):
 
@@ -103,6 +113,14 @@ class Rook(Piece):
         
         self.solutionMoves.sort()
         return self.solutionMoves
+
+    def getAttackMoves(self, board):
+        self.attackMoves = []
+        
+        for place in board.occupiedSpaces:
+          if place in self.solutionMoves:
+            self.attackMoves.append(place)
+        return self.attackMoves
 
 class Bishop(Piece):
 
@@ -144,6 +162,14 @@ class Bishop(Piece):
         self.solutionMoves.sort()
         return self.solutionMoves
 
+    def getAttackMoves(self, board):
+        self.attackMoves = []
+        
+        for place in board.occupiedSpaces:
+          if place in self.solutionMoves:
+            self.attackMoves.append(place)
+        return self.attackMoves
+
 class Queen(Rook, Bishop):
   
     def __init__(self, pos, board):
@@ -154,12 +180,20 @@ class Queen(Rook, Bishop):
     
         return self.solutionMoves
 
+    def getAttackMoves(self, board):
+        self.attackMoves = []
+        
+        for place in board.occupiedSpaces:
+          if place in self.solutionMoves:
+            self.attackMoves.append(place)
+        return self.attackMoves
+
 board1 = Chessboard()
 bishop1 = Bishop("b4", board1)
 
 rook1 = Rook("a5", board1)
 
-pawn1 = Pawn("a2", board1)
+pawn1 = Pawn("a6", board1)
 
 queen1 = Queen("c6", board1)
 #piece1.showPos()
@@ -172,6 +206,7 @@ print pawn1.getPawnMoves()
 print rook1.getRookMoves()
 print bishop1.getBishopMoves()
 print queen1.getQuennMoves()
+print queen1.getAttackMoves(board1)
 
 
 

@@ -105,9 +105,44 @@ class Rook(Piece):
         return self.solutionMoves
 
 class Bishop(Piece):
+
   
-  def __init__(self, pos, board):
-    Piece.__init__(self, pos, board)
+    def __init__(self, pos, board):
+        Piece.__init__(self, pos, board)
+
+    def getBishopMoves(self):
+        self.solutionMoves = []
+        self.directions = [
+                      [self.row,self.column], # upper right
+                      [self.row,self.column], # lower right
+                      [self.row,self.column], # upper left
+                      [self.row,self.column]] # lower left
+        
+
+        for columns in range(self.column,8):
+            
+            if self.directions[0][1] != 8 and self.column != self.directions[0][1] and self.directions[0][0] < 9:
+              self.solutionMoves.append(chess_map_from_index_to_alpha[self.directions[0][1]] + str(self.directions[0][0]))
+            if self.directions[1][1] !=8 and self.column != self.directions[1][1] and self.directions[1][0] > 0:
+                self.solutionMoves.append(chess_map_from_index_to_alpha[self.directions[1][1]] + str(self.directions[1][0]))
+            
+            self.directions[0][0],self.directions[0][1] = self.directions[0][0] + 1, self.directions[0][1] + 1
+            self.directions[1][0],self.directions[1][1] = self.directions[1][0] - 1, self.directions[1][1] + 1
+            
+        for columns in range(self.column,-1,-1):
+            
+            
+            if self.directions[2][1] > -1 and self.column != self.directions[2][1] and self.directions[2][0] < 9:
+                self.solutionMoves.append(chess_map_from_index_to_alpha[self.directions[2][1]] + str(self.directions[2][0]))
+            if self.directions[3][1] > -1 and self.column != self.directions[3][1] and self.directions[3][0] > 0:
+                self.solutionMoves.append(chess_map_from_index_to_alpha[self.directions[3][1]] + str(self.directions[3][0]))
+                
+           
+            self.directions[2][0],self.directions[2][1] = self.directions[2][0] + 1, self.directions[2][1] - 1
+            self.directions[3][0],self.directions[3][1] = self.directions[3][0] - 1, self.directions[3][1] - 1
+          
+        self.solutionMoves.sort()
+        return self.solutionMoves
 
 class Queen(Rook, Bishop):
   
@@ -115,12 +150,12 @@ class Queen(Rook, Bishop):
     Piece.__init__(self, pos, board)
 
 board1 = Chessboard()
-piece1 = Piece("a3", board1)
+bishop1 = Bishop("b4", board1)
 
 rook1 = Rook("a5", board1)
 
 pawn1 = Pawn("a2", board1)
-piece1.showPos()
+#piece1.showPos()
 
 
 # print board1.showOccupiedSpace()
@@ -128,6 +163,7 @@ piece1.showPos()
 
 print pawn1.getPawnMoves()
 print rook1.getRookMoves()
+print bishop1.getBishopMoves()
 
 
 

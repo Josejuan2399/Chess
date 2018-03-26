@@ -52,7 +52,7 @@ class Chessboard():
 
 class Piece():
   
-  def __init__(self, pos, board):
+    def __init__(self, pos, board):
         if (pos not in board.occupiedSpaces):
             self.column, self.row = list(pos.strip().lower())
             self.row = int(self.row) 
@@ -63,8 +63,21 @@ class Piece():
         else:
             print ("Occupied Space")
     
-  def showPos(self):
-    return [chess_map_from_index_to_alpha[self.column] + str(self.row)]
+    def showPos(self):
+        return [chess_map_from_index_to_alpha[self.column] + str(self.row)]
+
+    def move(self, newPos, board):
+        if newPos in self.solutionMoves:
+          board.occupiedSpaces.remove(chess_map_from_index_to_alpha[self.column] + str(self.row))
+          self.column, self.row = list(newPos.strip().lower())
+          self.row = int(self.row) 
+          self.column = chess_map_from_alpha_to_index[self.column]
+          self.solutionMoves = []
+          self.firstMove = 1
+          board.occupiedSpace(chess_map_from_index_to_alpha[self.column] + str(self.row))
+          return "Piece moved"
+        else:
+          return "Invalid move"
 
 class Pawn(Piece):
   
@@ -207,6 +220,7 @@ print rook1.getRookMoves()
 print bishop1.getBishopMoves()
 print queen1.getQuennMoves()
 print queen1.getAttackMoves(board1)
+print queen1.move("a6", board1)
 
 
 

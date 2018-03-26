@@ -79,6 +79,17 @@ class Piece():
         else:
           return "Invalid move"
 
+    def attack(self, newPos, board):
+        if newPos in self.attackMoves:
+          board.occupiedSpaces.remove(chess_map_from_index_to_alpha[self.column] + str(self.row))
+          self.column, self.row = list(newPos.strip().lower())
+          self.row = int(self.row) 
+          self.column = chess_map_from_alpha_to_index[self.column]
+          self.solutionMoves = []
+          return "Piece attacked"
+        else:
+          return "Invalid attack"
+
 class Pawn(Piece):
   
     def __init__(self, pos, board):
@@ -215,12 +226,15 @@ queen1 = Queen("c6", board1)
 # print board1.showOccupiedSpace()
 # print board1.showAvailableSpaces()
 
-print pawn1.getPawnMoves()
-print rook1.getRookMoves()
-print bishop1.getBishopMoves()
+# print pawn1.getPawnMoves()
+# print rook1.getRookMoves()
+# print bishop1.getBishopMoves()
 print queen1.getQuennMoves()
 print queen1.getAttackMoves(board1)
-print queen1.move("a6", board1)
+print queen1.move("b5", board1)
+print queen1.getQuennMoves()
+print queen1.getAttackMoves(board1)
+print queen1.attack("a6",board1)
 
 
 

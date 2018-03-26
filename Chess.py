@@ -61,3 +61,8 @@ class Bishop(Piece):
   
   def __init__(self, pos):
     Piece.__init__(self, pos)
+
+class Queen(Rook, Bishop):
+  
+  def __init__(self, pos):
+    Piece.__init__(self, pos)

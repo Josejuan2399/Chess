@@ -47,3 +47,7 @@ class Piece():
   def showPos(self):
     return [chess_map_from_index_to_alpha[self.column] + str(self.row)]
 
+class Pawn(Piece):
+  
+  def __init__(self, pos):
+     Piece.__init__(self,pos)

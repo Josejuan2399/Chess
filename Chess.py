@@ -43,11 +43,14 @@ class Chessboard():
     def showOccupiedSpace(self):
         return self.occupiedSpaces
 
-    def showAvailableSpaces(self):
-        for spaces in self.showBoard():
-            if (spaces not in self.occupiedSpaces):
-                self.availableSpaces.append(spaces)
-        return self.availableSpaces
+    def showAvailableSpaces(self, Spaces):
+        if (len(Spaces) < 1):
+            return ""
+        else:
+          if (Spaces[0] not in self.occupiedSpaces):
+            return Spaces[0] + " " + self.showAvailableSpaces( Spaces[1:])
+          else:
+            return self.showAvailableSpaces( Spaces[1:])
 
 
 class Piece():
@@ -223,8 +226,8 @@ queen1 = Queen("c6", board1)
 #piece1.showPos()
 
 
-# print board1.showOccupiedSpace()
-# print board1.showAvailableSpaces()
+# 
+
 
 # print pawn1.getPawnMoves()
 # print rook1.getRookMoves()
@@ -235,6 +238,9 @@ print queen1.move("b5", board1)
 print queen1.getQuennMoves()
 print queen1.getAttackMoves(board1)
 print queen1.attack("a6",board1)
+
+print board1.showOccupiedSpace()
+print board1.showAvailableSpaces(board1.showBoard())
 
 
 

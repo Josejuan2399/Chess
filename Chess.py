@@ -68,8 +68,21 @@ class Piece():
 
 class Pawn(Piece):
   
-  def __init__(self, pos, board):
-     Piece.__init__(self, pos, board)
+    def __init__(self, pos, board):
+        Piece.__init__(self, pos, board)
+
+    def getPawnMoves(self):
+        self.solutionMoves = []
+        if (self.firstMove == 0 and self.row == 2):
+          
+          for steps in range(1,3):
+            self.solutionMoves.append(chess_map_from_index_to_alpha[self.column] + str(self.row + steps))
+        elif(self.row != 8):
+          self.solutionMoves.append(chess_map_from_index_to_alpha[self.column] + str(self.row + 1))
+        
+        return self.solutionMoves
+
+
 
 class Rook(Piece):
   
@@ -87,14 +100,17 @@ class Queen(Rook, Bishop):
     Piece.__init__(self, pos, board)
 
 board1 = Chessboard()
-piece1 = Piece("a2", board1)
+piece1 = Piece("a3", board1)
 
 piece2 = Piece("a5", board1)
 
-piece3 = Piece("a2", board1)
+pawn1 = Pawn("a2", board1)
 piece1.showPos()
 
 
-print board1.showOccupiedSpace()
-print board1.showAvailableSpaces()
+# print board1.showOccupiedSpace()
+# print board1.showAvailableSpaces()
+
+print pawn1.getPawnMoves()
+
 

@@ -35,5 +35,15 @@ class Chessboard():
   def showBoard(self):
     return self.board
 
-
+class Piece():
+  
+  def __init__(self, pos):
+        self.column, self.row = list(pos.strip().lower())
+        self.row = int(self.row) 
+        self.column = chess_map_from_alpha_to_index[self.column]
+        self.solutionMoves = []
+        self.firstMove = 0
+    
+  def showPos(self):
+    return [chess_map_from_index_to_alpha[self.column] + str(self.row)]
 

@@ -56,3 +56,8 @@ class Rook(Piece):
   
   def __init__(self, pos):
     Piece.__init__(self, pos)
+
+class Bishop(Piece):
+  
+  def __init__(self, pos):
+    Piece.__init__(self, pos)

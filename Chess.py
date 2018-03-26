@@ -90,6 +90,14 @@ class Piece():
         else:
           return "Invalid attack"
 
+    def getAttackMoves(self, board):
+        self.attackMoves = []
+        
+        for place in board.occupiedSpaces:
+          if place in self.solutionMoves:
+            self.attackMoves.append(place)
+        return self.attackMoves
+
 class Pawn(Piece):
   
     def __init__(self, pos, board):
@@ -138,14 +146,6 @@ class Rook(Piece):
         self.solutionMoves.sort()
         return self.solutionMoves
 
-    def getAttackMoves(self, board):
-        self.attackMoves = []
-        
-        for place in board.occupiedSpaces:
-          if place in self.solutionMoves:
-            self.attackMoves.append(place)
-        return self.attackMoves
-
 class Bishop(Piece):
 
   
@@ -186,14 +186,6 @@ class Bishop(Piece):
         self.solutionMoves.sort()
         return self.solutionMoves
 
-    def getAttackMoves(self, board):
-        self.attackMoves = []
-        
-        for place in board.occupiedSpaces:
-          if place in self.solutionMoves:
-            self.attackMoves.append(place)
-        return self.attackMoves
-
 class Queen(Rook, Bishop):
   
     def __init__(self, pos, board):
@@ -203,14 +195,6 @@ class Queen(Rook, Bishop):
         self.solutionMoves = self.getRookMoves() + self.getBishopMoves()
     
         return self.solutionMoves
-
-    def getAttackMoves(self, board):
-        self.attackMoves = []
-        
-        for place in board.occupiedSpaces:
-          if place in self.solutionMoves:
-            self.attackMoves.append(place)
-        return self.attackMoves
 
 board1 = Chessboard()
 bishop1 = Bishop("b4", board1)

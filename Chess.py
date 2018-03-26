@@ -27,8 +27,7 @@ class Chessboard():
         
         self.board = []
         self.occupiedSpaces = []
-        self.availableSpaces = []
-
+        
         for columns in range(8):
           for rows in range(1,9):
             self.board.append(chess_map_from_index_to_alpha[columns] + str(rows))

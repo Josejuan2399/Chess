@@ -53,12 +53,15 @@ class Chessboard():
 class Piece():
   
   def __init__(self, pos, board):
-        self.column, self.row = list(pos.strip().lower())
-        self.row = int(self.row) 
-        self.column = chess_map_from_alpha_to_index[self.column]
-        self.solutionMoves = []
-        self.firstMove = 0
-        board.occupiedSpace(chess_map_from_index_to_alpha[self.column] + str(self.row))
+        if (pos not in board.occupiedSpaces):
+            self.column, self.row = list(pos.strip().lower())
+            self.row = int(self.row) 
+            self.column = chess_map_from_alpha_to_index[self.column]
+            self.solutionMoves = []
+            self.firstMove = 0
+            board.occupiedSpace(chess_map_from_index_to_alpha[self.column] + str(self.row))
+        else:
+            print ("Occupied Space")
     
   def showPos(self):
     return [chess_map_from_index_to_alpha[self.column] + str(self.row)]
@@ -88,7 +91,8 @@ piece1 = Piece("a2", board1)
 
 piece2 = Piece("a5", board1)
 
-piece3 = Piece("a3", board1)
+piece3 = Piece("a2", board1)
+piece1.showPos()
 
 
 print board1.showOccupiedSpace()

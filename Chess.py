@@ -146,8 +146,13 @@ class Bishop(Piece):
 
 class Queen(Rook, Bishop):
   
-  def __init__(self, pos, board):
-    Piece.__init__(self, pos, board)
+    def __init__(self, pos, board):
+        Piece.__init__(self, pos, board)
+
+    def getQuennMoves(self):
+        self.solutionMoves = self.getRookMoves() + self.getBishopMoves()
+    
+        return self.solutionMoves
 
 board1 = Chessboard()
 bishop1 = Bishop("b4", board1)
@@ -155,6 +160,8 @@ bishop1 = Bishop("b4", board1)
 rook1 = Rook("a5", board1)
 
 pawn1 = Pawn("a2", board1)
+
+queen1 = Queen("c6", board1)
 #piece1.showPos()
 
 
@@ -164,6 +171,7 @@ pawn1 = Pawn("a2", board1)
 print pawn1.getPawnMoves()
 print rook1.getRookMoves()
 print bishop1.getBishopMoves()
+print queen1.getQuennMoves()
 
 
 

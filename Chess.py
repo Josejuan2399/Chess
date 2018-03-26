@@ -57,14 +57,17 @@ class Piece():
   
     def __init__(self, pos, board):
         if (pos not in board.occupiedSpaces):
-            self.column, self.row = list(pos.strip().lower())
-            self.row = int(self.row) 
-            self.column = chess_map_from_alpha_to_index[self.column]
-            self.solutionMoves = []
+            self.__setPos(pos)
             self.firstMove = 0
             board.occupiedSpace(chess_map_from_index_to_alpha[self.column] + str(self.row))
         else:
             print ("Occupied Space")
+
+    def __setPos(self, pos):
+        self.column, self.row = list(pos.strip().lower())
+        self.row = int(self.row) 
+        self.column = chess_map_from_alpha_to_index[self.column]
+        self.solutionMoves = []
     
     def showPos(self):
         return [chess_map_from_index_to_alpha[self.column] + str(self.row)]
@@ -72,10 +75,7 @@ class Piece():
     def move(self, newPos, board):
         if newPos in self.solutionMoves:
           board.occupiedSpaces.remove(chess_map_from_index_to_alpha[self.column] + str(self.row))
-          self.column, self.row = list(newPos.strip().lower())
-          self.row = int(self.row) 
-          self.column = chess_map_from_alpha_to_index[self.column]
-          self.solutionMoves = []
+          self.__setPos(newPos)
           self.firstMove = 1
           board.occupiedSpace(chess_map_from_index_to_alpha[self.column] + str(self.row))
           return "Piece moved"
@@ -85,10 +85,7 @@ class Piece():
     def attack(self, newPos, board):
         if newPos in self.attackMoves:
           board.occupiedSpaces.remove(chess_map_from_index_to_alpha[self.column] + str(self.row))
-          self.column, self.row = list(newPos.strip().lower())
-          self.row = int(self.row) 
-          self.column = chess_map_from_alpha_to_index[self.column]
-          self.solutionMoves = []
+          self.__setPos(newPos)
           return "Piece attacked"
         else:
           return "Invalid attack"
@@ -232,15 +229,16 @@ queen1 = Queen("c6", board1)
 # print pawn1.getPawnMoves()
 # print rook1.getRookMoves()
 # print bishop1.getBishopMoves()
+print board1.showOccupiedSpace()
 print queen1.getQuennMoves()
-print queen1.getAttackMoves(board1)
+#print queen1.getAttackMoves(board1)
 print queen1.move("b5", board1)
 print queen1.getQuennMoves()
 print queen1.getAttackMoves(board1)
 print queen1.attack("a6",board1)
 
 print board1.showOccupiedSpace()
-print board1.showAvailableSpaces(board1.showBoard())
+#print board1.showAvailableSpaces(board1.showBoard())
 
 
 

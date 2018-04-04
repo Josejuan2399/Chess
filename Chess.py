@@ -27,6 +27,7 @@ class Chessboard():
         
         self.board = []
         self.occupiedSpaces = []
+        self.AvailableSpaces = []
         
         for columns in range(8):
           for rows in range(1,9):
@@ -43,13 +44,17 @@ class Chessboard():
         return self.occupiedSpaces
 
     def showAvailableSpaces(self, Spaces):
+        if (len(Spaces) == 64):
+            self.AvailableSpaces = []
         if (len(Spaces) < 1):
-            return ""
+            return self.AvailableSpaces
         else:
           if (Spaces[0] not in self.occupiedSpaces):
-            return Spaces[0] + " " + self.showAvailableSpaces( Spaces[1:])
-          else:
+            self.AvailableSpaces.append(Spaces[0])
             return self.showAvailableSpaces( Spaces[1:])
+          else:
+            return self.showAvailableSpaces(Spaces[1:])
+    
 
 
 class Piece():
@@ -63,7 +68,7 @@ class Piece():
             print ("Occupied Space")
 
     def __setPos(self, pos):
-        self.column, self.row = list(pos.strip().lower())
+        self.column, self.row = list(pos.lower())
         self.row = int(self.row) 
         self.column = chess_map_from_alpha_to_index[self.column]
         self.solutionMoves = []
@@ -108,6 +113,7 @@ class Pawn(Piece):
           
           for steps in range(1,3):
             self.solutionMoves.append(chess_map_from_index_to_alpha[self.column] + str(self.row + steps))
+
         elif(self.row != 8):
           self.solutionMoves.append(chess_map_from_index_to_alpha[self.column] + str(self.row + 1))
         
@@ -202,7 +208,7 @@ rook1 = Rook("a5", board1)
 
 pawn1 = Pawn("a6", board1)
 
-queen1 = Queen("c6", board1)
+queen1 = Queen("c4", board1)
 #piece1.showPos()
 
 
@@ -210,18 +216,20 @@ queen1 = Queen("c6", board1)
 
 
 # print pawn1.getPawnMoves()
-# print rook1.getRookMoves()
+#Bprint rook1.getRookMoves()
 # print bishop1.getBishopMoves()
-print board1.showOccupiedSpace()
-print queen1.getQuennMoves()
+# print board1.showOccupiedSpace()
+# print queen1.getQuennMoves()
 #print queen1.getAttackMoves(board1)
-print queen1.move("b5", board1)
-print queen1.getQuennMoves()
-print queen1.getAttackMoves(board1)
-print queen1.attack("a6",board1)
+# print queen1.move("b5", board1)
+# print queen1.getQuennMoves()
+# print queen1.getAttackMoves(board1)
+# print queen1.attack("a6",board1)
 
-print board1.showOccupiedSpace()
-#print board1.showAvailableSpaces(board1.showBoard())
+# print board1.showOccupiedSpace()
+print board1.showAvailableSpaces(board1.showBoard())
+print board1.showAvailableSpaces(board1.showBoard())
 
 
+#print (len(board1.board))
 
